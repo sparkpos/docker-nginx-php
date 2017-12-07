@@ -4,6 +4,9 @@ RUN locale-gen en_US.UTF-8
 ENV LANG       en_US.UTF-8
 ENV LC_ALL     en_US.UTF-8
 ENV HOME /root
+
+ENV DRUSH_VERSION 8.1.15
+
 CMD ["/sbin/my_init"]
 
 # Nginx-PHP Installation
@@ -75,13 +78,17 @@ RUN set -x && \
     sed -i 's/^;cgi.fix_pathinfo=.*/cgi.fix_pathinfo = 0;/' /etc/php/7.1/fpm/php.ini
 
 ###### install drush ######
-RUN set -x && \
-    curl -sS https://getcomposer.org/installer | php && \
-    mv composer.phar /usr/local/bin/composer && \
-    composer global require drush/drush:~8
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-RUN sed -i '1i export PATH="$HOME/.composer/vendor/drush/drush:$PATH"' $HOME/.bashrc && \
-    source $HOME/.bashrc
+apt-get update -yqq && \
+apt-get -y install mysql-client && \
+curl -fsSL -o /usr/local/bin/drush https://github.com/drush-ops/drush/releases/download/$DRUSH_VERSION/drush.phar | bash && \
+chmod +x /usr/local/bin/drush && \
+drush core-status 
+
+##install composer
+RUN php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php \
+		&& php composer-setup.php \
+		&& php -r "unlink('composer-setup.php');" \
+		&& mv composer.phar /usr/local/bin/composer
 
 ###### Chaning timezone ######
 RUN set -x && \
@@ -92,7 +99,7 @@ RUN set -x && \
 RUN set -x && \
     chown -R www-data:www-data /var/www/html
 #Update nginx config
-ADD nginx.conf /etc/nginx/
+ADD nginx/nginx.conf /etc/nginx/
 ADD index.php /var/www/html
 RUN rm /etc/nginx/sites-enabled/default && \
     mkdir /etc/nginx/ssl
