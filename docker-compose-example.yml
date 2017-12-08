@@ -1,0 +1,9 @@
+version: "3"
+services:
+  de:
+    image: "sparkpos/docker-nginx-php"
+    volumes:
+      - ~/www/drupal7-zkf-erp:/var/www/html 
+    ports:
+      - "9081:80"
+    container_name: de

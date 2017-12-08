@@ -100,6 +100,7 @@ RUN set -x && \
     chown -R www-data:www-data /var/www/html
 #Update nginx config
 ADD nginx/nginx.conf /etc/nginx/
+ADD nginx/sites/drupal7.conf /etc/nginx/sites-available/
 ADD index.php /var/www/html
 RUN rm /etc/nginx/sites-enabled/default && \
     mkdir /etc/nginx/ssl
