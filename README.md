@@ -1,47 +1,36 @@
 Nginx and PHP for Docker
 
 ## Last Version
-nginx: **1.11.6**   
-php:   **7.1.0**
+nginx: **1.12.1**   
+php:   **7.1.12**
 
 ## Docker Hub   
-**Nginx-PHP7:** [https://hub.docker.com/r/skiychan/nginx-php7](https://hub.docker.com/r/skiychan/nginx-php7)   
+**Nginx-PHP7:** [https://hub.docker.com/r/sparkpos/docker-nginx-php/](https://hub.docker.com/r/sparkpos/docker-nginx-php/)   
    
 ## Installation
 Pull the image from the docker index rather than downloading the git repo. This prevents you having to build the image on every docker host.
-```sh
-docker pull skiychan/nginx-php7:latest
+```
+docker pull sparkpos/docker-nginx-php:latest
 ```
 
-To pull the Nightly Version:   
+To pull the New Relic Version:   
 ```
-docker pull skiychan/nginx-php7:nightly
+docker pull sparkpos/docker-nginx-php:newrelic
 ```
 
 ## Running
 To simply run the container:
 ```sh
-docker run --name nginx -p 8080:80 -d skiychan/nginx-php7
+docker run --name lnmp -p 8080:80 -d sparkpos/docker-nginx-php
 ```
 You can then browse to http://\<docker_host\>:8080 to view the default install files.
 
 ## Volumes
 If you want to link to your web site directory on the docker host to the container run:
 ```sh
-docker run --name nginx -p 8080:80 -v /your_code_directory:/data/www -d skiychan/nginx-php7
+docker run --name lnmp -p 8080:80 -v /your_code_directory:/var/www/html -d skiychan/nginx-php7
 ```
 
-## Enabling SSL
-```sh
-docker run -d --name=nginx \
--p 80:80 -p 443:443 \
--v your_crt_key_files:/usr/local/nginx/conf/ssl \
--e PROXY_WEB=On \
--e PROXY_CRT=your_crt_name \
--e PROXY_KEY=your_key_name \
--e PROXY_DOMAIN=your_domain \
-skiychan/nginx-php7
-```
 
 ## Enabling Extensions With *.so
 Add xxx.ini to folder ```/your_php_extension_ini``` and add xxx.so to folder ```/your_php_extension_file```, then run the command:   
@@ -57,26 +46,23 @@ in xxx.ini, "zend_extension = /data/phpext/xxx.so", the zend_extension must be u
 ## Enabling Extensions With Source
 Also, You can add the source to ```extension.sh```. Example:   
 ```
-#Add extension mongodb
-curl -Lk https://pecl.php.net/get/mongodb-1.1.8.tgz | gunzip | tar x -C /home/extension && \
-cd /home/extension/mongodb-1.1.8 && \
-/usr/local/php/bin/phpize && \
-./configure --with-php-config=/usr/local/php/bin/php-config && \
-make && make install
-```
-Add ```mongodb.ini``` to folder ```extini```:   
-```
-extension=mongodb.so
-```
+#Add extension memcached
+    cd /usr/share/ && \
+    wget https://github.com/php-memcached-dev/php-memcached/archive/php7.zip && \
+    unzip php7.zip && rm php7.zip && \
+    cd php-memcached-php7 && \
+    /usr/bin/phpize7.1 && \
+    ./configure --with-php-config=/usr/bin/php-config7.1 && \
+    make && \
+    make install && \
+    touch /etc/php/7.1/mods-available/memcached.ini && \
+    echo "extension=memcached.so" >> /etc/php/7.1/mods-available/memcached.ini && \
+    ln -sf /etc/php/7.1/mods-available/memcached.ini /etc/php/7.1/fpm/conf.d/memcached.ini
 
-You can see the **[wiki](https://github.com/skiy-dockerfile/nginx-php7/wiki/Question-&-Answer)**
 
-## [ChangeLog](changelogs.md)
+You can see the **[wiki](https://github.com/skiy-dockerfile/nginx-php7/wiki/Question-&-Answer)** for more information
 
 ## Thanks
-[Legion](https://www.dwhd.org)  
+* [https://hub.docker.com/r/skiychan/nginx-php7](https://hub.docker.com/r/skiychan/nginx-php7)
+* [https://www.karelbemelmans.com/2017/08/docker-php-container-with-new-relic/](https://www.karelbemelmans.com/2017/08/docker-php-container-with-new-relic/)
 
-## Author
-Author: Skiychan    
-Email:  dev@skiy.net       
-Link:   https://www.skiy.net
