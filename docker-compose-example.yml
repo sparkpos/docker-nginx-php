@@ -4,7 +4,7 @@ services:
     image: "sparkpos/docker-nginx-php"
     volumes:
       - ~/www/drupal7-zkf-erp:/var/www/html 
-      - php-fpm/fpm-pool.conf:/etc/php/7.1/fpm/pool.d/www.conf
+      - ./php-fpm/fpm-pool.conf:/etc/php/7.1/fpm/pool.d/www.conf
     ports:
       - "9081:80"
     container_name: de
