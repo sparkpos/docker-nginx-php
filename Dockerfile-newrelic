@@ -1,0 +1,15 @@
+FROM sparkpos/docker-nginx-php:latest
+
+
+#Install Newrelic
+RUN set -x && DEBIAN_FRONTEND=noninteractive \
+  && wget -O - https://download.newrelic.com/548C16BF.gpg | apt-key add - \
+  && echo "deb http://apt.newrelic.com/debian/ newrelic non-free" > /etc/apt/sources.list.d/newrelic.list \
+  && apt-get update \
+  && apt-get install -y newrelic-php5 \
+  && newrelic-install install \
+  && unlink /etc/php/7.1/fpm/conf.d/20-newrelic.ini \
+  && unlink /etc/php/7.1/cli/conf.d/20-newrelic.ini \
+  && rm -rf /var/lib/apt/lists/*
+ADD startup-newrelic.sh /var/www/startup.sh
+RUN chmod +x /var/www/startup.sh
