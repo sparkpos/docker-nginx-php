@@ -113,6 +113,10 @@ RUN chmod +x /var/www/startup.sh
 
 ###### startup prepare ######
 VOLUME ["/var/www/html", "/etc/nginx/ssl", "/etc/nignx/site-enabled", "/etc/php/7.1/php.d", "/var/www/phpext"]
+
+###### clean up #########
+RUN apt-get clean && apt-get autoclean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 EXPOSE 80 443
 WORKDIR /var/www/html
 ENTRYPOINT ["/var/www/startup.sh"]
