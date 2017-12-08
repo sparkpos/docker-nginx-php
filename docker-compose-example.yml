@@ -1,10 +1,24 @@
 version: "3"
 services:
-  de:
-    image: "sparkpos/docker-nginx-php"
-    volumes:
-      - ~/www/drupal7-zkf-erp:/var/www/html 
-      - ./php-fpm/fpm-pool.conf:/etc/php/7.1/fpm/pool.d/www.conf
-    ports:
-      - "9081:80"
-    container_name: de
+    de:
+        image: "sparkpos/docker-nginx-php"
+        volumes:
+            - ~/www/drupal7-zkf-erp:/var/www/html 
+            - ./php-fpm/fpm-pool.conf:/etc/php/7.1/fpm/pool.d/www.conf
+        ports:
+            - "9081:80"
+        container_name: de
+        networks:
+            - front
+
+networks:
+    front:
+        # use the bridge driver, but enable IPv6
+        driver: bridge
+        driver_opts:
+            com.docker.network.enable_ipv6: "true"
+        ipam:
+            driver: default
+            config:
+                - subnet: 10.10.254.0/24
+                gateway: 10.10.254.1
