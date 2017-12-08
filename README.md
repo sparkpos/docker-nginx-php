@@ -9,6 +9,7 @@ php:   **7.1.12**
    
 ## Installation
 Pull the image from the docker index rather than downloading the git repo. This prevents you having to build the image on every docker host.
+
 ```
 docker pull sparkpos/docker-nginx-php:latest
 ```
@@ -19,11 +20,24 @@ docker pull sparkpos/docker-nginx-php:newrelic
 ```
 
 ## Running
-To simply run the container:
-```sh
-docker run --name lnmp -p 8080:80 -d sparkpos/docker-nginx-php
+### To simply run the container:
+
+
+nginx+php
+
+```
+docker run -itd --name lnmp -p 8080:80 sparkpos/docker-nginx-php:latest
+```
+
+nginx+php+newrelic
+
+```
+docker run -itd --name lnmp -p 8080:80  -e NEWRELICAPPNAME=testing -e NEWRELICKEY=8322790a22222fa25822188520d8fc3 sparkpos/docker-nginx-php:newrelic
+
 ```
 You can then browse to http://\<docker_host\>:8080 to view the default install files.
+
+
 
 ## Volumes
 If you want to link to your web site directory on the docker host to the container run:
