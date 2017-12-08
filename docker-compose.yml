@@ -1,0 +1,18 @@
+version: "3"
+services:
+  de:
+    image: "sparkpos/docker-nginx-php"
+    volumes:
+      - ~/www/drupal7-zkf-erp:/var/www/html 
+      - ./php-fpm/fpm-pool.conf:/etc/php/7.1/fpm/pool.d/www.conf
+    ports:
+      - "9081:80"
+    container_name: de
+  drupal:
+    image: drupal:7
+    container_name: drupal7
+    ports:
+      - 8080:80
+    volumes:
+      - ~/www/drupal7-zkf-erp:/var/www/html
+    restart: always
