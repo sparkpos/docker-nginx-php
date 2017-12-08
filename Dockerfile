@@ -15,7 +15,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y vim unzip curl wget  mys
 RUN add-apt-repository -y ppa:nginx/stable
 RUN add-apt-repository -y ppa:ondrej/php
 RUN apt-get update
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y nginx git
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y nginx
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y --force-yes \
     php7.1-mysql \
     php7.1-xml \
