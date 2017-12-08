@@ -78,7 +78,7 @@ RUN set -x && \
     sed -i 's/^;cgi.fix_pathinfo=.*/cgi.fix_pathinfo = 0;/' /etc/php/7.1/fpm/php.ini
 
 ###### install drush ######
-apt-get update -yqq && \
+RUN apt-get update -yqq && \
 apt-get -y install mysql-client && \
 curl -fsSL -o /usr/local/bin/drush https://github.com/drush-ops/drush/releases/download/$DRUSH_VERSION/drush.phar | bash && \
 chmod +x /usr/local/bin/drush && \
