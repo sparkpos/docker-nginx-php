@@ -1,3 +1,5 @@
+[![Travis](https://travis-ci.org/sparkpos/docker-nginx-php.svg?branch=master)](https://travis-ci.org/sparkpos/docker-nginx-php)
+
 Nginx and PHP for Docker
 
 ## Last Version
