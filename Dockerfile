@@ -106,7 +106,7 @@ RUN rm /etc/nginx/sites-enabled/default && \
     mkdir /etc/nginx/ssl
 
 ###### Insert supervisord conf file ######
-ADD supervisord.conf /etc/
+ADD supervisor/supervisord.conf /etc/supervisor/
 
 ###### Start shell #######
 ADD startup.sh /var/www/startup.sh

@@ -15,8 +15,6 @@ networks:
     front:
         # use the bridge driver, but enable IPv6
         driver: bridge
-        driver_opts:
-            com.docker.network.enable_ipv6: "true"
         ipam:
             driver: default
             config:
