@@ -6,6 +6,7 @@ install:
 
 before_script:
    - image="sparkpos/docker-nginx-php"
+   - sed -i 's/UTC/CST/' ~/official-images/test/tests/utc/expected-std-out.txt
 
 script:
   - travis_retry docker build -t "$image" .

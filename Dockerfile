@@ -96,7 +96,7 @@ RUN set -x && \
     unlink /etc/localtime && \
     ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
-###### cinfig nginx ######
+###### Config nginx ######
 RUN set -x && \
     chown -R www-data:www-data /var/www/html
 #Update nginx config
