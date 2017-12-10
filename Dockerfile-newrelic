@@ -10,3 +10,6 @@ RUN set -x && DEBIAN_FRONTEND=noninteractive \
   && unlink /etc/php/7.1/fpm/conf.d/20-newrelic.ini \
   && unlink /etc/php/7.1/cli/conf.d/20-newrelic.ini \
   && rm -rf /var/lib/apt/lists/*
+
+CP build/newrelic-entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["newrelic-entrypoint"]
