@@ -11,6 +11,7 @@ RUN set -x && DEBIAN_FRONTEND=noninteractive \
   && unlink /etc/php/7.1/cli/conf.d/20-newrelic.ini \
   && rm -rf /var/lib/apt/lists/*
 
-COPY build/newrelic-entrypoint.sh /usr/local/bin/
+COPY build/newrelic-entrypoint.sh /usr/local/bin/newrelic-entrypoint
+RUN chmod +x /usr/local/bin/newrelic-entrypoint
 
 ENTRYPOINT ["newrelic-entrypoint"]
