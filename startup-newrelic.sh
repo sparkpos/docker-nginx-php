@@ -16,4 +16,4 @@ fi
 
 set -e
 chown -R www-data:www-data $DATA_DIR
-/usr/bin/supervisord -n -c /etc/supervisord.conf
+/usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
