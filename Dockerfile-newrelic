@@ -15,3 +15,4 @@ COPY build/newrelic-entrypoint.sh /usr/local/bin/newrelic-entrypoint
 RUN chmod +x /usr/local/bin/newrelic-entrypoint
 
 ENTRYPOINT ["newrelic-entrypoint"]
+CMD ["/sbin/my_init"]
