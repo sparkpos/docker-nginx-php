@@ -8,7 +8,7 @@ before_script:
    - image="sparkpos:docker-nginx-php"
 
 script:
-  - trivis_retry docker build -t Dockerfile .
+  - travis_retry docker build -t "$image" .
   - ~/official-images/test/run.sh "$image"
 
 after_script:
