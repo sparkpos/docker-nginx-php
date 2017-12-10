@@ -5,7 +5,7 @@ install:
   - git clone https://github.com/docker-library/official-images.git ~/official-images
 
 before_script:
-   - image="sparkpos:docker-nginx-php"
+   - image="sparkpos/docker-nginx-php"
 
 script:
   - travis_retry docker build -t "$image" .

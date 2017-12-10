@@ -1,6 +1,5 @@
 FROM sparkpos/docker-nginx-php:latest
 
-
 #Install Newrelic
 RUN set -x && DEBIAN_FRONTEND=noninteractive \
   && wget -O - https://download.newrelic.com/548C16BF.gpg | apt-key add - \
@@ -11,5 +10,13 @@ RUN set -x && DEBIAN_FRONTEND=noninteractive \
   && unlink /etc/php/7.1/fpm/conf.d/20-newrelic.ini \
   && unlink /etc/php/7.1/cli/conf.d/20-newrelic.ini \
   && rm -rf /var/lib/apt/lists/*
-ADD startup-newrelic.sh /var/www/startup.sh
-RUN chmod +x /var/www/startup.sh
+
+if [ ! -z ${NEWRELICKEY+x} ];
+then
+  if [ ! -z ${NEWRELICAPPNAME+x} ];
+  then
+    export NR_INSTALL_SILENT=true
+    sed -i "s/newrelic.appname = .*/newrelic.appname = \"$NEWRELICAPPNAME\"/" /etc/php/7.1/fpm/conf.d/newrelic.ini
+    sed -i "s/newrelic.license = .*/newrelic.license = \"$NEWRELICKEY\"/" /etc/php/7.1/fpm/conf.d/newrelic.ini
+  fi
+fi
