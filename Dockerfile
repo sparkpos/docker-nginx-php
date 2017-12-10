@@ -106,19 +106,16 @@ ADD index.php /var/www/html
 RUN rm /etc/nginx/sites-enabled/default && \
     mkdir /etc/nginx/ssl
 
-###### Insert supervisord conf file ######
+###### supervisord ######
 ADD supervisor/supervisord.conf /etc/supervisor/
-
-###### Start shell #######
-ADD startup.sh /var/www/startup.sh
-RUN chmod +x /var/www/startup.sh
-
-###### startup prepare ######
-VOLUME ["/var/www/html", "/etc/nginx/ssl", "/etc/nignx/site-enabled", "/etc/php/7.1/php.d", "/var/www/phpext"]
+ADD supervisor/supervisor-service.sh /etc/service/supervisor/run
+RUN chmod +x /etc/service/supervisor/run
 
 ###### clean up #########
 RUN apt-get clean && apt-get autoclean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+###### startup prepare ######
+VOLUME ["/var/www/html", "/etc/nginx/ssl", "/etc/nignx/site-enabled", "/etc/php/7.1/php.d", "/var/www/phpext"]
+
 EXPOSE 80 443
 WORKDIR /var/www/html
-ENTRYPOINT ["/var/www/startup.sh"]
