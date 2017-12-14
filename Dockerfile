@@ -32,7 +32,8 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y --force-yes \
     php7.1-xml \
     php7.1-bcmath \
     php7.1-soap \
-    php7.1-pgsql
+    php7.1-pgsql \
+    php7.1-zip
 
 ###### Install php-fpm extension######
 ### Enable memcache
@@ -76,7 +77,7 @@ RUN set -x && \
     sed -i 's/post_max_size = .*/post_max_size = 32M/' /etc/php/7.1/fpm/php.ini && \
     sed -i 's/^; max_input_vars =.*/max_input_vars =10000/' /etc/php/7.1/fpm/php.ini && \
     sed -i 's/^;cgi.fix_pathinfo=.*/cgi.fix_pathinfo = 0;/' /etc/php/7.1/fpm/php.ini && \
-    sed -i 's/\/run\/php\/php7.1-fpm.pid/\/run\/php7.1-fpm.pid/' etc/php/7.1/fpm/php-fpm.conf
+    sed -i 's/\/run\/php\/php7.1-fpm.sock/\/tmp\/php7.1-fpm.sock/' /etc/php/7.1/fpm/pool.d/www.conf
 
 ###### install drush ######
 RUN apt-get update -yqq && \
