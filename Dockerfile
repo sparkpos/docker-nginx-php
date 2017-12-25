@@ -43,7 +43,6 @@ RUN set -x && \
 ADD nginx/nginx.conf /etc/nginx/
 ADD nginx/sites/drupal7.conf /etc/nginx/sites-available/
 RUN mkdir /etc/nginx/ssl && \
-    set -x && chown -R nginx:nginx /var/www/html && \
     mkdir /etc/nginx/ssl && \
     rm /etc/nginx/conf.d/default.conf &&  \
     chown -R nginx:nginx /etc/nginx
