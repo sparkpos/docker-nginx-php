@@ -30,8 +30,7 @@ RUN set -x && \
 #Update nginx config
 ADD nginx/nginx.conf /etc/nginx/
 ADD nginx/sites/drupal7.conf /etc/nginx/sites-available/
-RUN mkdir /etc/nginx/ssl
-RUN set -x && chown -R nginx:nginx /etc/nginx
+RUN mkdir /etc/nginx/ssl && rm /etc/nginx/conf.d/default.conf &&  chown -R nginx:nginx /etc/nginx
 
 ###### supervisord ######
 ADD supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.ini
