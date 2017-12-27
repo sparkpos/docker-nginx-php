@@ -1,5 +1,15 @@
 version: "3"
 services:
+  nginx-proxy:
+    image: "jwilder/nginx-proxy"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./nginx-proxy:/etc/nginx/conf.d/
+    ports:
+      - "80:80"
+    networks:
+      - front
+
   de:
     image: "sparkpos/docker-nginx-php"
     volumes:
