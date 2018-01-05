@@ -8,8 +8,7 @@ RUN apk --no-cache add curl curl-dev bzip2 bzip2-dev zlib zlib-dev libxml2 \
     libmemcached libmemcached-dev cyrus-sasl-dev  mysql-client nginx supervisor tzdata
 
 ##### Install php extension packages
-RUN docker-php-ext-install mysqli opcache json openssl curl bz2 zip xml \
-    simplexml phar intl dom mbstring  ctype pdo pdo_mysql bcmath
+RUN docker-php-ext-install mysqli opcache  bz2 zip intl  pdo_mysql bcmath
 
 ##### Install memcached and redis packages
 RUN pecl install redis memcached && \
@@ -44,7 +43,7 @@ RUN mkdir /etc/nginx/ssl && \
 ADD supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 ###### startup prepare ######
-VOLUME ["/var/www/html", "/etc/nignx/site-enabled", "/etc/php7/php.d"]
+VOLUME ["/var/www/html", "/etc/nignx/site-enabled", "/usr/local/etc"]
 
 EXPOSE 80 443
 WORKDIR /var/www/html
