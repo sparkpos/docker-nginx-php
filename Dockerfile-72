@@ -3,7 +3,7 @@ FROM php:fpm-alpine3.7
 ENV DRUSH_VERSION 8.1.15
 
 ###### Install packages
-RUN apk --no-cache add g++ gcc make autoconf url curl-dev bzip2 bzip2-dev zlib zlib-dev libxml2 \
+RUN apk --no-cache add g++ gcc make autoconf curl curl-dev bzip2 bzip2-dev zlib zlib-dev libxml2 \
     libxml2-dev openssl openssl-dev icu icu-libs icu-dev libpng-dev \
     libmemcached libmemcached-dev cyrus-sasl-dev  mysql-client nginx supervisor tzdata
 
