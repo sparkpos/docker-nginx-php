@@ -1,0 +1,52 @@
+FROM php:fpm-alpine3.7
+
+ENV DRUSH_VERSION 8.1.15
+
+###### Install packages
+RUN apk --no-cache add curl curl-dev bzip2 bzip2-dev zlib zlib-dev libxml2 \
+    libxml2-dev openssl openssl-dev icu icu-libs icu-dev libpng-dev \
+    libmemcached libmemcached-dev cyrus-sasl-dev  mysql-client nginx supervisor tzdata
+
+##### Install php extension packages
+RUN docker-php-ext-install mysqli opcache json openssl curl bz2 zip xml \
+    simplexml phar intl dom mbstring  ctype pdo pdo_mysql bcmath
+
+##### Install memcached and redis packages
+RUN pecl install redis memcached && \
+    docker-php-ext-enable redis memcached
+
+###### set up timezone
+RUN rm /etc/localtime && \
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+###### install drush ######
+RUN curl -fsSL -o /usr/local/bin/drush https://github.com/drush-ops/drush/releases/download/$DRUSH_VERSION/drush.phar | sh && \
+    chmod +x /usr/local/bin/drush && \
+    drush core-status 
+
+##install composer
+RUN php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php && \
+    php composer-setup.php && \
+    php -r "unlink('composer-setup.php');" && \
+    mv composer.phar /usr/local/bin/composer
+
+###### change php.ini ######
+ADD php.ini /usr/local/etc/
+
+#Update nginx config
+ADD nginx/nginx.conf /etc/nginx/
+ADD nginx/sites/drupal7.conf /etc/nginx/sites-available/
+RUN mkdir /etc/nginx/ssl && \
+    rm /etc/nginx/conf.d/default.conf && \
+    chown -R nginx:nginx /etc/nginx
+
+###### supervisord ######
+ADD supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+###### startup prepare ######
+VOLUME ["/var/www/html", "/etc/nignx/site-enabled", "/etc/php7/php.d"]
+
+EXPOSE 80 443
+WORKDIR /var/www/html
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
