@@ -3,16 +3,17 @@ FROM php:fpm-alpine3.7
 ENV DRUSH_VERSION 8.1.15
 
 ###### Install packages
-RUN apk --no-cache add curl curl-dev bzip2 bzip2-dev zlib zlib-dev libxml2 \
+RUN apk --no-cache add g++ gcc make autoconf url curl-dev bzip2 bzip2-dev zlib zlib-dev libxml2 \
     libxml2-dev openssl openssl-dev icu icu-libs icu-dev libpng-dev \
     libmemcached libmemcached-dev cyrus-sasl-dev  mysql-client nginx supervisor tzdata
 
+##### Install memcached and redis packages
+RUN echo no | pecl install redis && \
+    echo no | pecl install memcached && \
+    docker-php-ext-enable redis memcached
+
 ##### Install php extension packages
 RUN docker-php-ext-install mysqli opcache  bz2 zip intl  pdo_mysql bcmath
-
-##### Install memcached and redis packages
-RUN pecl install redis memcached && \
-    docker-php-ext-enable redis memcached
 
 ###### set up timezone
 RUN rm /etc/localtime && \
