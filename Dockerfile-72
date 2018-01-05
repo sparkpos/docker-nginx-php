@@ -41,7 +41,7 @@ RUN mkdir /etc/nginx/ssl && \
     chown -R nginx:nginx /etc/nginx
 
 ###### supervisord ######
-ADD supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD supervisor/supervisord-72.conf /etc/supervisor/conf.d/supervisord.conf
 
 ###### startup prepare ######
 VOLUME ["/var/www/html", "/etc/nignx/site-enabled", "/usr/local/etc"]
