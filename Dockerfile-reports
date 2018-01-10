@@ -1,3 +1,2 @@
 FROM docker-nginx-php:alpine
-RUN apk add --no-cache inotify-tools
 ADD supervisor/supervisord-reports.conf /etc/supervisor/conf.d/supervisord.conf 
