@@ -1,2 +1,2 @@
-FROM docker-nginx-php:alpine
+FROM sparkpos/docker-nginx-php:alpine
 ADD supervisor/supervisord-reports.conf /etc/supervisor/conf.d/supervisord.conf 
