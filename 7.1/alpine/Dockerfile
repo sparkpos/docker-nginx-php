@@ -2,12 +2,6 @@ FROM alpine:3.7
 
 ENV DRUSH_VERSION 8.1.15
 
-
-##add www-data user for nginx and php
-RUN set -x && \
-    addgroup -g 82  www-data && \
-    adduser -u 82 -g www-data www-data
-
 ###### Install packages
 RUN apk --no-cache add php7 php7-fpm php7-mysqli php7-opcache php7-common php7-mcrypt php7-json php7-openssl php7-curl \
     php7-bz2 php7-zip php7-dev php7-zlib php7-xml php7-simplexml php7-phar php7-intl php7-dom php7-xmlreader php7-xmlwriter php7-ctype php7-pdo php7-pdo_mysql php7-bcmath\
@@ -34,6 +28,11 @@ RUN php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php
 RUN set -x && \
     unlink /etc/localtime && \
     ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+##add www-data user for nginx and php
+RUN set -x && \
+    addgroup -g 82 -S www-data && \
+    adduser -u 82 -D -S -G www-data www-data 
 
 ###### change php.ini ######
 ADD config/php.ini /etc/php7/
