@@ -49,7 +49,7 @@ ADD config/drupal8.conf /etc/nginx/site-enabled/
 RUN mkdir /etc/nginx/ssl
 
 ###### supervisord ######
-ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 ###### startup prepare ######
 VOLUME ["/var/www/html", "/etc/nignx/site-enabled", "/etc/php7/php.d"]
