@@ -4,20 +4,18 @@ services:
     image: "jwilder/nginx-proxy"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./nginx-proxy:/etc/nginx/conf.d/
+      #- ./nginx-proxy:/etc/nginx/conf.d/
     ports:
       - "80:80"
     networks:
       - front
-
   de:
     image: "sparkpos/docker-nginx-php"
     volumes:
       - ~/your-code:/var/www/html 
       - ./php-fpm/fpm-pool.conf:/etc/php/7.1/fpm/pool.d/www.conf
-    ports:
-      - "9081:80"
-    #container_name: de
+    environment:
+      - VIRTUAL_HOST=de.dev
     networks:
       - front
 
