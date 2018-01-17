@@ -3,7 +3,7 @@ FROM php:fpm-alpine3.7
 ENV DRUSH_VERSION 8.1.15
 
 ###### Install packages
-RUN apk --no-cache add bzip2 bzip2-dev zip icu icu-libs icu-dev libmemcache zlib-dev \
+RUN apk --no-cache add bzip2 bzip2-dev zip icu icu-libs icu-dev libmemcached zlib-dev \
     libmemcached-dev cyrus-sasl-dev mysql-client nginx supervisor tzdata 
 
 ##### Install memcached and redis packages
