@@ -30,7 +30,7 @@ RUN set -x && \
     ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 ##add www-data user for nginx and php
-RUN set -x \
+RUN set -x && \
     addgroup -g 82  www-data && \
     adduser -u 82 -g www-data www-data
 
