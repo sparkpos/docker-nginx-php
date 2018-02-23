@@ -1,0 +1,51 @@
+version: "3"
+services:
+  nginx-proxy:
+    image: "jwilder/nginx-proxy"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      #- "./nginx/custom.conf:/etc/nginx/conf.d/my_custom_proxy_settings.conf"
+    ports:
+      - "80:80"
+    environment:
+      - HTTPS_METHOD=nohttps
+      - HSTS=off
+    networks:
+      - frontend
+
+  example:
+    image: "sparkpos/docker-nginx-php:7.1-alpine"
+    volumes:
+      - ~/your-code:/var/www/html 
+    environment:
+      - VIRTUAL_HOST=example.dev,example.local
+    hostname: "example.docker"
+    networks:
+      - frontend
+      - backend
+
+  mysql:
+    image: mariadb:10.3
+    ports:
+      - "3306:3306"
+    volumes:
+      - ~/storage/mariadb:/var/lib/mysql
+      - ./etc/mysql/my.cnf:/etc/my.cnf
+    privileged: true
+    environment:
+      TZ: 'Asia/Shanghai'
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_ROOT_HOST: "%"
+    user: mysql
+    networks:
+      - backend
+
+networks:
+  frontend:
+    driver: bridge
+    ipam:
+      driver: default
+  backend:
+    driver: bridge
+    ipam:
+      driver: default
