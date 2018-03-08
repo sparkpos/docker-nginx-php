@@ -22,7 +22,7 @@ RUN apk update && apk add ca-certificates && \
 ###### install drush ######
 RUN curl -fsSL -o /usr/local/bin/drush8 https://github.com/drush-ops/drush/releases/download/$DRUSH_VERSION/drush.phar | sh && \
     chmod +x /usr/local/bin/drush8 && \
-    drush core-status 
+    drush8 core-status 
 
 ###### install drush laucher ######
 RUN wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/download/$DRUSH_LAUCHER/drush.phar && \
