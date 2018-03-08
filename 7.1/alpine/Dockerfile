@@ -1,6 +1,7 @@
 FROM alpine:3.7
 
 ENV DRUSH_VERSION 8.1.15
+ENV DRUSH_LAUCHER 0.5.1
 
 ##add www-data user for nginx and php
 RUN set -x && \
@@ -19,9 +20,15 @@ RUN apk update && apk add ca-certificates && \
     echo "Asia/Shanghai" > /etc/timezone
 
 ###### install drush ######
-RUN curl -fsSL -o /usr/local/bin/drush https://github.com/drush-ops/drush/releases/download/$DRUSH_VERSION/drush.phar | sh && \
-    chmod +x /usr/local/bin/drush && \
+RUN curl -fsSL -o /usr/local/bin/drush8 https://github.com/drush-ops/drush/releases/download/$DRUSH_VERSION/drush.phar | sh && \
+    chmod +x /usr/local/bin/drush8 && \
     drush core-status 
+
+###### install drush laucher ######
+RUN wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/download/$DRUSH_LAUCHER/drush.phar && \
+    chmod +x drush.phar &&
+    mv drush.phar /usr/local/bin/drush
+ENV DRUSH_LAUNCHER_FALLBACK=/usr/local/bin/drush8
 
 ##install composer
 RUN php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php && \
