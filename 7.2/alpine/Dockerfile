@@ -1,6 +1,6 @@
 FROM php:fpm-alpine3.7
 
-ENV DRUSH_VERSION 8.1.15
+ENV DRUSH_VERSION 0.5.1
 
 ###### Install packages
 RUN apk --no-cache add g++ gcc make autoconf curl curl-dev bzip2 bzip2-dev zip icu icu-libs icu-dev \
@@ -19,9 +19,8 @@ RUN rm /etc/localtime && \
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 ###### install drush ######
-RUN curl -fsSL -o /usr/local/bin/drush https://github.com/drush-ops/drush/releases/download/$DRUSH_VERSION/drush.phar | sh && \
-    chmod +x /usr/local/bin/drush && \
-    drush core-status 
+RUN curl -fsSL -o /usr/local/bin/drush drush.phar https://github.com/drush-ops/drush-launcher/releases/download/$DRUSH_VERSION/drush.phar | sh && \
+    chmod +x /usr/local/bin/drush
 
 ##install composer
 RUN php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php && \
