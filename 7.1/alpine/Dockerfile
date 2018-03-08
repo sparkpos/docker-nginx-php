@@ -26,7 +26,7 @@ RUN curl -fsSL -o /usr/local/bin/drush8 https://github.com/drush-ops/drush/relea
 
 ###### install drush laucher ######
 RUN wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/download/$DRUSH_LAUCHER/drush.phar && \
-    chmod +x drush.phar &&
+    chmod +x drush.phar && \
     mv drush.phar /usr/local/bin/drush
 ENV DRUSH_LAUNCHER_FALLBACK=/usr/local/bin/drush8
 
