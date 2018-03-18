@@ -1,5 +1,5 @@
 FROM sparkpos/docker-nginx-php:7.1-alpine
-ENV NEWRELIC_VERSION 7.7.0.203
+ENV NEWRELIC_VERSION 8.0.0.204
 
 RUN cd /tmp && \
     curl -O  https://download.newrelic.com/php_agent/release/newrelic-php5-$NEWRELIC_VERSION-linux-musl.tar.gz && \
