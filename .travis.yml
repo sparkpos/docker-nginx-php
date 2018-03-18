@@ -17,7 +17,7 @@ before_script:
 
 script:
   - travis_retry docker build -t "$image":7.1-alpine ./7.1/alpine
-  - ~/official-images/test/run.sh "$image"
+  - ~/official-images/test/run.sh "$image":7.1-alpine
   - docker-compose -f docker-compose-example.yml up -d
 
 after_script:
