@@ -56,7 +56,7 @@ ADD config/drupal8.conf /etc/nginx/site-enabled/
 RUN mkdir /etc/nginx/ssl
 
 ###### supervisord ######
-ADD config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD config/supervisord.conf /etc/supervisord.conf
 
 ###### startup prepare ######
 VOLUME ["/var/www/html", "/etc/nignx/site-enabled", "/etc/php7/php.d"]
@@ -64,4 +64,4 @@ VOLUME ["/var/www/html", "/etc/nignx/site-enabled", "/etc/php7/php.d"]
 EXPOSE 80 443
 WORKDIR /var/www/html
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

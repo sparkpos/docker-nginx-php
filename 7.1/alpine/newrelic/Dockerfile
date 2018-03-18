@@ -8,4 +8,4 @@ RUN cd /tmp && \
     NR_INSTALL_SILENT=true ./newrelic-install install
 
 ADD newrelic.sh /app/
-ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD supervisord.conf /etc/supervisord.conf
