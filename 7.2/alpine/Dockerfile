@@ -41,6 +41,11 @@ RUN php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php
 ADD config/php.ini /usr/local/etc/
 ADD config/www.conf /etc/php7/php-fpm.d/www.conf
 
+##### update curl cacert ######
+## see https://stackoverflow.com/questions/24611640/curl-60-ssl-certificate-unable-to-get-local-issuer-certificate
+ADD https://curl.haxx.se/ca/cacert.pem /var/certs/curl_cacert.pem
+RUN echo "curl.cainfo=\"/var/certs/curl_cacert.pem\"" >> /etc/php7/conf.d/00_curl.ini
+
 #Update nginx config
 ADD config/nginx.conf /etc/nginx/
 ADD config/drupal8.conf /etc/nginx/site-enabled/
