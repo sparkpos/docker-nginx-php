@@ -2,6 +2,7 @@ FROM alpine:3.7
 
 ENV DRUSH_VERSION 8.1.15
 ENV DRUSH_LAUCHER 0.5.1
+ENV NEWRELIC_VERSION 8.0.0.204
 
 ##add www-data user for nginx and php
 RUN set -x && \
