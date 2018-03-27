@@ -5,7 +5,7 @@ ENV DRUSH_LAUCHER 0.5.1
 
 ###### Install packages
 RUN apk --no-cache add g++ gcc make autoconf curl curl-dev bzip2 bzip2-dev zip icu icu-libs icu-dev \
-    libmemcached libmemcached-dev zlib-dev cyrus-sasl-dev mysql-client nginx supervisor tzdata 
+    libmemcached libmemcached-dev zlib-dev cyrus-sasl-dev mysql-client nginx supervisor tzdata bash
 
 ##### Install memcached and redis packages
 RUN echo no | pecl install redis && \
