@@ -48,8 +48,8 @@ RUN set -x && \
 #    adduser -u 82 -D -S -G www-data www-data 
 
 ###### change php.ini ######
-ADD ../../build/php.ini /etc/php7/
-ADD ../../build/www.conf /etc/php7/php-fpm.d/www.conf
+ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/php.ini /etc/php7/
+ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/www.conf /etc/php7/php-fpm.d/www.conf
 
 ##### update curl cacert ######
 ## see https://stackoverflow.com/questions/24611640/curl-60-ssl-certificate-unable-to-get-local-issuer-certificate
@@ -57,12 +57,12 @@ ADD ../../build/www.conf /etc/php7/php-fpm.d/www.conf
 #RUN echo "curl.cainfo=\"/var/certs/curl_cacert.pem\"" >> /etc/php7/conf.d/00_curl.ini
 
 #####Update nginx config
-ADD ../../build/nginx.conf /etc/nginx/
-ADD ../../build/drupal8.conf /etc/nginx/site-enabled/
+ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/nginx.conf /etc/nginx/
+ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/drupal8.conf /etc/nginx/site-enabled/
 RUN mkdir /etc/nginx/ssl
 
 ###### supervisord ######
-ADD ../../build/supervisord.conf /etc/supervisord.conf
+ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/supervisord.conf /etc/supervisord.conf
 
 ###### startup prepare ######
 VOLUME ["/var/www/html", "/etc/nignx/site-enabled", "/etc/php7/php.d"]
