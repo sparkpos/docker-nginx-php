@@ -55,7 +55,7 @@ ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/www.conf 
 ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/nginx.conf /etc/nginx/
 ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/drupal8.conf /tmp/drupal.conf
 ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/laravel.conf /tmp/laravel.conf
-RUN mkdir /etc/nginx/ssl
+RUN mkdir /etc/nginx/ssl /etc/nginx/site-enabled
 
 ###### supervisord ######
 ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/supervisord.conf /etc/supervisord.conf
