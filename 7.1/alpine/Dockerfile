@@ -5,9 +5,9 @@ ENV DRUSH_LAUCHER 0.5.1
 ENV NEWRELIC_VERSION 8.0.0.204
 
 ##add www-data user for nginx and php
-RUN set -x && \
-    addgroup -g 82 -S www-data && \
-    adduser -u 82 -D -S -G www-data www-data 
+# RUN set -x && \
+#     addgroup -g 82 -S www-data && \
+#     adduser -u 82 -D -S -G www-data www-data 
 
 ###### Install packages
 RUN apk --no-cache add php7 php7-fpm php7-mysqli php7-opcache php7-common php7-mcrypt php7-json php7-openssl php7-curl \
@@ -42,11 +42,6 @@ RUN set -x && \
     unlink /etc/localtime && \
     ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
-##add www-data user for nginx and php
-#RUN set -x && \
-#    addgroup -g 82 -S www-data && \
-#    adduser -u 82 -D -S -G www-data www-data 
-
 ###### change php.ini ######
 ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/php.ini /etc/php7/
 ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/www.conf /etc/php7/php-fpm.d/www.conf
@@ -58,16 +53,22 @@ ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/www.conf 
 
 #####Update nginx config
 ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/nginx.conf /etc/nginx/
-ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/drupal8.conf /etc/nginx/site-enabled/
+ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/drupal8.conf /tmp/drupal.conf
+ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/laravel.conf /tmp/laravel.conf
 RUN mkdir /etc/nginx/ssl
 
 ###### supervisord ######
 ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/supervisord.conf /etc/supervisord.conf
 
 ###### startup prepare ######
-VOLUME ["/var/www/html", "/etc/nignx/site-enabled", "/etc/php7/php.d"]
+VOLUME ["/var/www/html"]
 
 EXPOSE 80 443
 WORKDIR /var/www/html
+
+ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+RUN chmod +x /usr/local/bin/docker-entrypoint
+
+ENTRYPOINT ["docker-entrypoint"]
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
