@@ -63,7 +63,7 @@ ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/superviso
 ###### startup prepare ######
 VOLUME ["/var/www/html"]
 
-EXPOSE 80 443
+EXPOSE 80
 WORKDIR /var/www/html
 
 ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/docker-entrypoint.sh /usr/local/bin/docker-entrypoint

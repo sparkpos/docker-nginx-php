@@ -57,7 +57,7 @@ ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/superviso
 ###### startup prepare ######
 VOLUME ["/var/www/html", "/etc/nignx/site-enabled", "/usr/local/etc"]
 
-EXPOSE 80 443
+EXPOSE 80
 WORKDIR /var/www/html
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
