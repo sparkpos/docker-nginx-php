@@ -1,7 +1,7 @@
 FROM php:fpm-alpine3.7
 
-ENV DRUSH_VERSION 8.1.15
-ENV DRUSH_LAUCHER 0.5.1
+ENV DRUSH_VERSION 8.1.16
+ENV DRUSH_LAUCHER 0.6.0
 
 ###### Install packages
 RUN apk --no-cache add g++ gcc make autoconf curl curl-dev bzip2 bzip2-dev zip icu icu-libs icu-dev \
