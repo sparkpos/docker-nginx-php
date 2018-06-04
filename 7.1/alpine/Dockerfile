@@ -60,6 +60,7 @@ RUN mkdir /etc/nginx/ssl /etc/nginx/site-enabled
 
 ###### supervisord ######
 ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/supervisord.conf /etc/supervisord.conf
+RUN mkdir -p /etc/supervisor/conf.d
 
 ###### startup prepare ######
 VOLUME ["/var/www/html"]
