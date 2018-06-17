@@ -40,12 +40,7 @@ RUN php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php
 ### php:fpm-alpine3.7 default user www-data uid 82
 ###### change php.ini ######
 ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/php.ini /usr/local/etc/
-ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/www.conf /etc/php7/php-fpm.d/www.conf
-
-##### update curl cacert ######
-## see https://stackoverflow.com/questions/24611640/curl-60-ssl-certificate-unable-to-get-local-issuer-certificate
-#ADD https://curl.haxx.se/ca/cacert.pem /var/certs/curl_cacert.pem
-#RUN echo "curl.cainfo=\"/var/certs/curl_cacert.pem\"" >> /etc/php7/conf.d/00_curl.ini
+ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/www.conf /usr/local/etc/php-fpm.d/www.conf
 
 #Update nginx config
 ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/nginx.conf /etc/nginx/
