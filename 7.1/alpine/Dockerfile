@@ -2,6 +2,7 @@ FROM php:7.1-fpm-alpine3.7
 
 ENV DRUSH_VERSION 8.1.16
 ENV DRUSH_LAUCHER 0.6.0
+ENV NEWRELIC_VERSION 8.1.0.209
 ENV COLUMNS 0
 
 ###### Install packages
