@@ -38,17 +38,17 @@ RUN php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php
     mv composer.phar /usr/local/bin/composer
 
 ###### change php.ini ######
-ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/php.ini /usr/local/etc/
+ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/masterconf/php.ini /usr/local/etc/
 RUN sed -i -e "s/listen = 9000//g" /usr/local/etc/php-fpm.d/zz-docker.conf
-ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/www.conf /usr/local/etc/php-fpm.d/www.conf
+ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/www.conf /usr/local/etc/php-fpm.d/www.conf
 
 #Update nginx config
-ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/nginx.conf /etc/nginx/
-ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/drupal8.conf /etc/nginx/site-enabled/
+ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/nginx.conf /etc/nginx/
+ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/drupal8.conf /etc/nginx/site-enabled/
 RUN mkdir /etc/nginx/ssl
 
 ###### supervisord ######
-ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/supervisord.conf /etc/supervisord.conf
+ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/supervisord.conf /etc/supervisord.conf
 RUN mkdir -p /etc/supervisor/conf.d
 
 ###### startup prepare ######
