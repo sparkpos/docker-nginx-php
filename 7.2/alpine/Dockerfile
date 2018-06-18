@@ -47,8 +47,9 @@ ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/www.
 
 #Update nginx config
 ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/nginx.conf /etc/nginx/
-ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/drupal8.conf /etc/nginx/site-enabled/
-RUN mkdir /etc/nginx/ssl
+ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/drupal8.conf /tmp/drupal.conf
+ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/laravel.conf /tmp/laravel.conf
+RUN mkdir /etc/nginx/ssl /etc/nginx/site-enabled
 
 ###### supervisord ######
 ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/supervisord.conf /etc/supervisord.conf
