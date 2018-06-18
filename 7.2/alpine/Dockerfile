@@ -57,6 +57,11 @@ RUN mkdir -p /etc/supervisor/conf.d
 ###### startup prepare ######
 VOLUME ["/var/www/html", "/etc/nignx/site-enabled", "/usr/local/etc"]
 
+ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+RUN chmod +x /usr/local/bin/docker-entrypoint
+
+ENTRYPOINT ["docker-entrypoint"]
+
 EXPOSE 80
 WORKDIR /var/www/html
 
