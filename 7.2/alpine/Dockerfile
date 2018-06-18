@@ -41,7 +41,7 @@ RUN php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php
     mv composer.phar /usr/local/bin/composer
 
 ###### change php.ini ######
-ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/php.ini /usr/local/etc/
+ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/php.ini /usr/local/etc/php/
 RUN sed -i -e "s/listen = 9000//g" /usr/local/etc/php-fpm.d/zz-docker.conf
 ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/www.conf /usr/local/etc/php-fpm.d/www.conf
 
