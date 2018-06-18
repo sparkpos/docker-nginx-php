@@ -6,7 +6,10 @@ ENV COLUMNS 0
 
 ###### Install packages
 RUN apk --no-cache add g++ gcc make autoconf curl curl-dev bzip2 bzip2-dev zip icu icu-libs icu-dev \
-    libmemcached libmemcached-dev zlib-dev cyrus-sasl-dev mysql-client nginx supervisor tzdata bash
+    libmemcached libmemcached-dev zlib-dev cyrus-sasl-dev mysql-client nginx supervisor tzdata bash \
+    libpng-dev freetype-dev libjpeg-turbo-dev libmcrypt-dev \
+    postgresql-libs postgresql-dev
+RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/
 
 ##### Install memcached and redis packages
 RUN echo no | pecl install redis && \
@@ -14,7 +17,7 @@ RUN echo no | pecl install redis && \
     docker-php-ext-enable redis memcached
 
 ##### Install php extension packages
-RUN docker-php-ext-install mysqli opcache  bz2 zip intl  pdo_mysql bcmath
+RUN docker-php-ext-install mysqli opcache gd bz2 zip intl pdo_mysql bcmath pgsql pdo_pgsql
 
 ###### set up timezone
 RUN rm /etc/localtime && \
