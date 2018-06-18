@@ -37,9 +37,9 @@ RUN php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php
     php -r "unlink('composer-setup.php');" && \
     mv composer.phar /usr/local/bin/composer
 
-### php:fpm-alpine3.7 default user www-data uid 82
 ###### change php.ini ######
 ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/php.ini /usr/local/etc/
+RUN sed -i -e "s/listen = 9000//g" /usr/local/etc/php-fpm.d/zz-docker.conf
 ADD https://raw.githubusercontent.com/sparkpos/nginx-php-config/master/www.conf /usr/local/etc/php-fpm.d/www.conf
 
 #Update nginx config
