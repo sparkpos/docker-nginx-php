@@ -18,7 +18,7 @@ RUN echo no | pecl install redis && \
     docker-php-ext-enable redis memcached
 
 ##### Install php extension packages
-RUN docker-php-ext-install mysqli opcache gd bz2 zip intl pdo_mysql bcmath pgsql pdo_pgsql
+RUN docker-php-ext-install mysqli opcache gd bz2 zip intl pdo_mysql bcmath pgsql pdo_pgsql calendar
 
 ###### set up timezone
 RUN rm /etc/localtime && \
