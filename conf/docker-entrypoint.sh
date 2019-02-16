@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 APP=${APP:=drupal}
 mv /tmp/$APP.conf /etc/nginx/site-enabled/
+if [ ! -z "$DRUPAL8_WEB_DIR" ]; then
+  sed -i "s/root \/var\/www\/html;/root \/var\/www\/html\/web;/g" /etc/nginx/site-enabled/drupal.conf
+fi
 
 # Increase the memory_limit
 if [ ! -z "$PHP_MEM_LIMIT" ]; then
