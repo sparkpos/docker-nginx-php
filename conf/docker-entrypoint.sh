@@ -23,11 +23,11 @@ fi
 
 # php-fpm process related config.
 if [ ! -z "$PHP_FPM_PM" ]; then
-  sed -i -E "s/pm\s=\s.*+$/pm = ${PHP_FPM_PM}/g" /usr/local/etc/php-fpm.d/www.conf
+  sed -i -E "s/pm = .*$/pm = ${PHP_FPM_PM}/g" /usr/local/etc/php-fpm.d/www.conf
   sed -i -E "s/pm\.max_children = \d+$/pm.max_children = ${PHP_FPM_PM_MAX_CHILDREN}/g" /usr/local/etc/php-fpm.d/www.conf
   case $PHP_FPM_PM in
     ondemand)
-      sed -i -E "s/;pm.process_idle_timeout = 10s;/pm.process_idle_timeout = ${PHP_FPM_PM_PROCESS_IDLE_TIMEOUT}/g" /usr/local/etc/php-fpm.d/www.conf;;
+      sed -i -E "s/;?pm.process_idle_timeout = .*/pm.process_idle_timeout = ${PHP_FPM_PM_PROCESS_IDLE_TIMEOUT}s/g" /usr/local/etc/php-fpm.d/www.conf;;
     dynamic)
       sed -i \
         -E "s/pm.start_servers = \d+/pm.start_servers = ${PHP_FPM_PM_START_SERVERS}/g;
