@@ -24,7 +24,11 @@ fi
 # php-fpm process related config.
 if [ ! -z "$PHP_FPM_PM" ]; then
   sed -i -E "s/pm = .*$/pm = ${PHP_FPM_PM}/g" /usr/local/etc/php-fpm.d/www.conf
-  sed -i -E "s/pm\.max_children = \d+$/pm.max_children = ${PHP_FPM_PM_MAX_CHILDREN}/g" /usr/local/etc/php-fpm.d/www.conf
+  # dynamic/ondemand/static三种，都会用到pm.max_children这个配置。
+  if [ ! -z "$PHP_FPM_PM_MAX_CHILDREN" ]; then
+    sed -i -E "s/pm\.max_children = \d+$/pm.max_children = ${PHP_FPM_PM_MAX_CHILDREN}/g" /usr/local/etc/php-fpm.d/www.conf
+  fi
+  
   case $PHP_FPM_PM in
     ondemand)
       sed -i -E "s/;?pm.process_idle_timeout = .*/pm.process_idle_timeout = ${PHP_FPM_PM_PROCESS_IDLE_TIMEOUT}s/g" /usr/local/etc/php-fpm.d/www.conf;;
