@@ -8,7 +8,7 @@ ENV COLUMNS 0
 ###### Install packages
 RUN apk --no-cache add g++ gcc make autoconf curl curl-dev bzip2 bzip2-dev zip icu icu-libs icu-dev \
     libmemcached libmemcached-dev zlib-dev cyrus-sasl-dev mysql-client nginx supervisor tzdata bash \
-    libpng-dev freetype-dev libjpeg-turbo-dev libmcrypt-dev \
+    libpng-dev freetype-dev libjpeg-turbo-dev libmcrypt-dev git \
     postgresql-libs postgresql-dev
 RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/
 
