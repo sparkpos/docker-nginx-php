@@ -1,21 +1,21 @@
 FROM php:7.1-fpm-alpine3.7
 
-ENV DRUSH_VERSION 8.1.16
+ENV DRUSH_VERSION 8.3.0
 ENV DRUSH_LAUCHER 0.6.0
-ENV NEWRELIC_VERSION 8.1.0.209
 ENV COLUMNS 0
 
 ###### Install packages
 RUN apk --no-cache add g++ gcc make autoconf curl curl-dev bzip2 bzip2-dev zip icu icu-libs icu-dev \
     libmemcached libmemcached-dev zlib-dev cyrus-sasl-dev mysql-client nginx supervisor tzdata bash \
-    libpng-dev freetype-dev libjpeg-turbo-dev libmcrypt-dev git \
-    postgresql-libs postgresql-dev
-RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/
-
+    libpng-dev freetype-dev libjpeg-turbo-dev libmcrypt-dev git imagemagick-dev libtool\
+    postgresql-libs postgresql-dev && \
+    docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+    
 ##### Install memcached and redis packages
 RUN echo no | pecl install redis && \
     echo yes | pecl install memcached && \
-    docker-php-ext-enable redis memcached
+    echo yes | pecl install imagick && \
+    docker-php-ext-enable redis memcached imagick
 
 ##### Install php extension packages
 RUN docker-php-ext-install mysqli opcache gd bz2 zip intl pdo_mysql bcmath pgsql pdo_pgsql calendar
