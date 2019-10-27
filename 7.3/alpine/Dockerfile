@@ -6,7 +6,7 @@ ENV COLUMNS 0
 ENV DRUSH_LAUNCHER_FALLBACK=/usr/local/bin/drush8
 
 ###### Install packages
-RUN apk --no-cache add g++ gcc make autoconf curl curl-dev bzip2 bzip2-dev zip icu icu-libs icu-dev \
+RUN apk --no-cache add tzdata g++ gcc make autoconf curl curl-dev bzip2 bzip2-dev zip icu icu-libs icu-dev \
     libmemcached libmemcached-dev zlib-dev cyrus-sasl-dev mysql-client nginx supervisor tzdata bash \
     libpng-dev freetype-dev libjpeg-turbo-dev libmcrypt-dev git imagemagick-dev libtool\
     postgresql-libs postgresql-dev && \
@@ -15,15 +15,13 @@ RUN apk --no-cache add g++ gcc make autoconf curl curl-dev bzip2 bzip2-dev zip i
     echo no | pecl install redis && \
     echo yes | pecl install memcached && \
     echo yes | pecl install imagick && \
-    docker-php-ext-enable redis memcached imagick && \
+RUN docker-php-ext-enable redis memcached imagick && \
 ##### Install php extension packages
     docker-php-ext-install mysqli opcache gd bz2 zip intl pdo_mysql bcmath pgsql pdo_pgsql calendar && \
 ###### set up timezone
-    rm /etc/localtime && \
-    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-
+    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 ###### install drush ######
-RUN curl -fsSL -o /usr/local/bin/drush8 https://github.com/drush-ops/drush/releases/download/$DRUSH_VERSION/drush.phar | sh && \
+    curl -fsSL -o /usr/local/bin/drush8 https://github.com/drush-ops/drush/releases/download/$DRUSH_VERSION/drush.phar | sh && \
     chmod +x /usr/local/bin/drush8 && \
     drush8 core-status && \
 ##### drush lancher ######
