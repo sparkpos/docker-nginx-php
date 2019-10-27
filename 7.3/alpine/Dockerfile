@@ -15,7 +15,7 @@ RUN apk --no-cache add tzdata g++ gcc make autoconf curl curl-dev bzip2 bzip2-de
     echo no | pecl install redis && \
     echo yes | pecl install memcached && \
     echo yes | pecl install imagick && \
-RUN docker-php-ext-enable redis memcached imagick && \
+    docker-php-ext-enable redis memcached imagick && \
 ##### Install php extension packages
     docker-php-ext-install mysqli opcache gd bz2 zip intl pdo_mysql bcmath pgsql pdo_pgsql calendar && \
 ###### set up timezone
