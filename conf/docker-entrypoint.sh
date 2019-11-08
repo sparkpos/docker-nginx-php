@@ -42,6 +42,41 @@ if [ ! -z "$PHP_FPM_PM" ]; then
   esac
 fi
 
+# Enable xdebug
+XdebugFile='/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini'
+if [[ "$ENABLE_XDEBUG" == "1" ]] ; then
+  if [ -f $XdebugFile ]; then
+  	echo "Xdebug enabled"
+  else
+  	echo "Enabling xdebug"
+  	echo "If you get this error, you can safely ignore it: /usr/local/bin/docker-php-ext-enable: line 83: nm: not found"
+  	# see https://github.com/docker-library/php/pull/420
+    docker-php-ext-enable xdebug
+    # see if file exists
+    if [ -f $XdebugFile ]; then
+        # See if file contains xdebug text.
+        if grep -q xdebug.remote_enable "$XdebugFile"; then
+            echo "Xdebug already enabled... skipping"
+        else
+            XDEBUG_IDEKEY=${XDEBUG_IDEKEY:=PHPSTORM}
+            echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > $XdebugFile # Note, single arrow to overwrite file.
+            echo "xdebug.remote_enable=1 "  >> $XdebugFile
+            echo "xdebug.remote_host=127.0.0.1" >> $XdebugFile
+            echo "xdebug.remote_port=9001" >> $XdebugFile
+            echo "xdebug.remote_connect_back=1" >> $XdebugFile
+            echo "xdebug.remote_autostart=1" >> $XdebugFile
+            # echo "xdebug.remote_log=/tmp/xdebug.log"  >> $XdebugFile
+            echo "xdebug.idekey=${XDEBUG_IDEKEY}"  >> $XdebugFile 
+        fi
+    fi
+  fi
+else
+    if [ -f $XdebugFile ]; then
+        echo "Disabling Xdebug"
+      rm $XdebugFile
+    fi
+fi
+
 # fpm status enable flag.
 if [ ! -z "$PHP_FPM_STATUS_ENABLE" ]; then
   sed -i "s/;pm.status_path = \/status/pm.status_path = \/status/g" /usr/local/etc/php-fpm.d/www.conf
