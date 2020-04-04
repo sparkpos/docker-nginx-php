@@ -5,10 +5,10 @@ sedStr="
   s!%%PHP_VERSION%%!$version!g;
 "
 
-gsed -r "$sedStr" $1
+sed -r "$sedStr" $1
 }
 
-versions=(7.1 7.2 7.3)
+versions=(7.1 7.2 7.3 7.4)
 for version in ${versions[*]}; do
   render Dockerfile-alpine.template > $version/alpine/Dockerfile
 done
