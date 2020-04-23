@@ -11,8 +11,8 @@ RUN apk add --no-cache --virtual .build-deps g++ gcc make autoconf curl curl-dev
     mysql-client nginx supervisor tzdata bash libpng-dev freetype-dev libjpeg-turbo-dev libmcrypt-dev \
     git imagemagick-dev libtool postgresql-libs postgresql-dev && \
     docker-php-ext-configure gd \
-        --with-gd --with-freetype-dir=/usr/include/ \
-        --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
+        --with-gd --with-freetype=/usr/include/ \
+        --with-png-dir=/usr/include/ --with-jpeg=/usr/include/ && \
     ##### Install memcached and redis packages
     echo no | pecl install redis && \
     echo yes | pecl install memcached && \
