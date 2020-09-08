@@ -36,3 +36,4 @@ see [docker-compose.yml](https://github.com/sparkpos/docker-nginx-php/blob/maste
 |PHP_FPM_PM_MIN_SPARE_SERVERS|modify the pm.min_spare_servers. this is availiable when pm = dynamic|
 |PHP_FPM_PM_MAX_SPARE_SERVERS|modify the pm.max_spare_servers. this is availiable when pm = dynamic|
 |PHP_FPM_STATUS_ENABLE|enable the fpm status path or not. the path is /status|
+|TIMEOUT|modify the nginx.conf:proxy_read_timeout and php.ini:max_execution_time|

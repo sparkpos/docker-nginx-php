@@ -14,6 +14,11 @@ fi
 if [ ! -z "$PHP_MEM_LIMIT" ]; then
   sed -i "s/memory_limit = 128M/memory_limit = ${PHP_MEM_LIMIT}M/g" /usr/local/etc/php/php.ini
 fi
+# Increase the timeout
+if [ ! -z "$TIMEOUT" ]; then
+  sed -i "s/max_execution_time = 30/max_execution_time = ${TIMEOUT}/g" /usr/local/etc/php/php.ini
+  sed -i "s/proxy_read_timeout 60;/client_max_body_size ${TIMEOUT};/g" /etc/nginx/nginx.conf
+fi
 
 # Increase the post_max_size
 if [ ! -z "$MAX_FILE_UPLOAD_SIZE" ]; then
@@ -29,7 +34,7 @@ if [ ! -z "$PHP_FPM_PM" ]; then
   if [ ! -z "$PHP_FPM_PM_MAX_CHILDREN" ]; then
     sed -i -E "s/pm\.max_children = \d+$/pm.max_children = ${PHP_FPM_PM_MAX_CHILDREN}/g" /usr/local/etc/php-fpm.d/www.conf
   fi
-  
+
   case $PHP_FPM_PM in
     ondemand)
       sed -i -E "s/;?pm.process_idle_timeout = .*/pm.process_idle_timeout = ${PHP_FPM_PM_PROCESS_IDLE_TIMEOUT}s/g" /usr/local/etc/php-fpm.d/www.conf;;
@@ -65,7 +70,7 @@ if [[ "$ENABLE_XDEBUG" == "1" ]] ; then
             echo "xdebug.remote_connect_back=1" >> $XdebugFile
             echo "xdebug.remote_autostart=1" >> $XdebugFile
             # echo "xdebug.remote_log=/tmp/xdebug.log"  >> $XdebugFile
-            echo "xdebug.idekey=${XDEBUG_IDEKEY}"  >> $XdebugFile 
+            echo "xdebug.idekey=${XDEBUG_IDEKEY}"  >> $XdebugFile
         fi
     fi
   fi
