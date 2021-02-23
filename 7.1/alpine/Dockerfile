@@ -8,11 +8,13 @@ ENV DRUSH_LAUNCHER_FALLBACK=/usr/local/bin/drush8
 ###### Install packages
 RUN apk add --no-cache --virtual .build-deps g++ gcc make autoconf curl curl-dev bzip2 bzip2-dev \
     zip libzip-dev icu icu-libs icu-dev libmemcached libmemcached-dev zlib-dev cyrus-sasl-dev \
-    mysql-client nginx supervisor tzdata bash libpng-dev freetype-dev libjpeg-turbo-dev libmcrypt-dev \
+    mysql-client nginx supervisor tzdata bash libpng-dev freetype-dev libwebp-dev libjpeg-turbo-dev libmcrypt-dev \
     git imagemagick-dev libtool postgresql-libs postgresql-dev && \
-    docker-php-ext-configure gd \
-        --with-gd --with-freetype-dir=/usr/include/ \
-        --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
+    docker-php-ext-configure gd --with-gd \
+        --with-freetype-dir=/usr/include/ \
+        --with-png-dir=/usr/include/  \
+        --with-webp-dir=/usr/include/ \
+        --with-jpeg-dir=/usr/include/ && \
     ##### Install memcached and redis packages
     echo no | pecl install redis && \
     echo yes | pecl install memcached && \

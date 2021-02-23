@@ -11,4 +11,13 @@ sed -r "$sedStr" $1
 versions=(7.1 7.2 7.3 7.4)
 for version in ${versions[*]}; do
   render Dockerfile-alpine.template > $version/alpine/Dockerfile
+  if [ "${version}" = "7.4" ]; then
+    sed -i "s/with-gd/enable-gd/g" ${version}/alpine/Dockerfile
+    sed -i "s/--with-png-dir=\/usr\/include\///g" ${version}/alpine/Dockerfile
+    sed -i "s/-dir=/=/g" ${version}/alpine/Dockerfile
+
+    #sed -i "s/with-freetype-dir/with-webp/g" ${version}/alpine/Dockerfile
+    #sed -i "s/with-webp-dir/with-webp/g" ${version}/alpine/Dockerfile
+    #sed -i "s/with-jpeg-dir/with-jpeg/g" ${version}/alpine/Dockerfile
+  fi
 done
