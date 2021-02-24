@@ -52,7 +52,7 @@ fi
 XdebugFile='/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini'
 if [[ "$ENABLE_XDEBUG" == "1" ]] ; then
   if [ -f $XdebugFile ]; then
-  	#echo "Xdebug enabled"
+	sleep 1
   else
   	echo "Enabling xdebug"
   	echo "If you get this error, you can safely ignore it: /usr/local/bin/docker-php-ext-enable: line 83: nm: not found"
