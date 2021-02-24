@@ -18,6 +18,7 @@ fi
 if [ ! -z "$TIMEOUT" ]; then
   sed -i "s/max_execution_time = 30/max_execution_time = ${TIMEOUT}/g" /usr/local/etc/php/php.ini
   sed -i "s/proxy_read_timeout 60;/proxy_read_timeout ${TIMEOUT};/g" /etc/nginx/nginx.conf
+  sed -i "s/fastcgi_read_timeout 60;/fastcgi_read_timeout ${TIMEOUT};/g" /etc/nginx/nginx.conf
 fi
 
 # Increase the post_max_size
