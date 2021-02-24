@@ -40,13 +40,13 @@ RUN apk add --no-cache --virtual .build-deps g++ gcc make autoconf curl curl-dev
     mv composer.phar /usr/local/bin/composer
 
 ###### change php.ini ######
-ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/php.ini /usr/local/etc/php/
-ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/www.conf /usr/local/etc/php-fpm.d/www.conf
-ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/nginx.conf /etc/nginx/
-ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/drupal8.conf /tmp/drupal.conf
-ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/laravel.conf /tmp/laravel.conf
-ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/supervisord.conf /etc/supervisord.conf
-ADD https://raw.githubusercontent.com/sparkpos/docker-nginx-php/master/conf/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+ADD conf/php.ini /usr/local/etc/php/
+ADD conf/www.conf /usr/local/etc/php-fpm.d/www.conf
+ADD conf/nginx.conf /etc/nginx/
+ADD conf/drupal8.conf /tmp/drupal.conf
+ADD conf/laravel.conf /tmp/laravel.conf
+ADD conf/supervisord.conf /etc/supervisord.conf
+ADD conf/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 
 RUN sed -i -e "s/listen = 9000//g" /usr/local/etc/php-fpm.d/zz-docker.conf && \
     sed -i -e "s/access.log = \/proc\/self\/fd\/2/access.log = \/proc\/self\/fd\/1/g" /usr/local/etc/php-fpm.d/docker.conf && \

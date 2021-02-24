@@ -77,8 +77,9 @@ if [[ "$ENABLE_XDEBUG" == "1" ]] ; then
   fi
 else
     if [ -f $XdebugFile ]; then
-        echo "Disabling Xdebug"
-      rm $XdebugFile
+        # echo "Disabling Xdebug"
+	sleep 1
+        rm $XdebugFile
     fi
 fi
 

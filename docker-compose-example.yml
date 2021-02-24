@@ -14,7 +14,7 @@ services:
       - frontend
 
   example:
-    image: "sparkpos/docker-nginx-php:7.1-alpine"
+    image: "sparkpos/docker-nginx-php:7.3-alpine"
     volumes:
       - ~/your-code:/var/www/html 
     environment:
