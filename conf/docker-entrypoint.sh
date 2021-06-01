@@ -87,5 +87,5 @@ fi
 if [ ! -z "$PHP_FPM_STATUS_ENABLE" ]; then
   sed -i "s/;pm.status_path = \/status/pm.status_path = \/status/g" /usr/local/etc/php-fpm.d/www.conf
 fi
-
+export PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[00m\]@\h: \[\033[01;36m\]\w\[\033[00m\] \[\t\]\n\$ '
 exec "$@"
