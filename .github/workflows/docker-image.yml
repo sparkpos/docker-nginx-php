@@ -7,12 +7,21 @@ on:
     branches: [ master ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+       include:
+         - tag: 7.1-alpine
+           Dockerfile: "7.1/alpine/Dockerfile"
+           image: "sparkpos/docker-nginx-php:7.1-alpine"
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file 7.4/alpine/Dockerfile --tag sparkpos/docker-nginx-php:7.4-alpine
+      run: docker build . --file ${{ matrix.Dockerfile }} --tag ${{ matrix.image }}
+    - name: Publish to Docker Hub
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: ${{ matrix.image }}
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
