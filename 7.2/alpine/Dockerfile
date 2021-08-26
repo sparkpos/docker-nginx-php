@@ -22,8 +22,7 @@ RUN apk add --no-cache --virtual .build-deps g++ gcc make autoconf curl curl-dev
     echo no | pecl install redis && \
     echo yes | pecl install memcached && \
     echo yes | pecl install imagick && \
-    echo yes | pecl install xdebug && \
-    docker-php-ext-enable redis memcached xdebug imagick && \
+    docker-php-ext-enable redis memcached imagick && \
     ##### Install php extension packages
     docker-php-ext-install mysqli opcache gd bz2 zip intl pdo_mysql bcmath pgsql pdo_pgsql calendar && \
     ###### set up timezone
