@@ -22,7 +22,7 @@ RUN apk add --no-cache --virtual .build-deps g++ gcc make autoconf curl curl-dev
     echo no | pecl install redis && \
     echo yes | pecl install memcached && \
     echo yes | pecl install imagick && \
-    echo yes | pecl install xdebug-2.9.0 && \
+    echo yes | pecl install xdebug && \
     docker-php-ext-enable redis memcached xdebug imagick && \
     ##### Install php extension packages
     docker-php-ext-install mysqli opcache gd bz2 zip intl pdo_mysql bcmath pgsql pdo_pgsql calendar && \
@@ -50,11 +50,13 @@ ADD conf/drupal8.conf /tmp/drupal.conf
 ADD conf/laravel.conf /tmp/laravel.conf
 ADD conf/supervisord.conf /etc/supervisord.conf
 ADD conf/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+ADD conf/crontab-root /etc/crontabs/root
+ADD conf/drupal-cron /etc/periodic/daily
 
 RUN sed -i -e "s/listen = 9000//g" /usr/local/etc/php-fpm.d/zz-docker.conf && \
     sed -i -e "s/access.log = \/proc\/self\/fd\/2/access.log = \/proc\/self\/fd\/1/g" /usr/local/etc/php-fpm.d/docker.conf && \
     chmod +x /usr/local/bin/docker-entrypoint && \
-    mkdir -p /etc/nginx/ssl /etc/nginx/site-enabled /etc/supervisor/conf.d
+    mkdir -p /etc/nginx/ssl /etc/nginx/site-enabled /etc/supervisor/conf.d /etc/periodic/min
 
 ###### startup prepare ######
 VOLUME ["/var/www/html", "/etc/nignx/site-enabled"]

@@ -13,14 +13,19 @@ RUN apk add --no-cache --virtual .build-deps g++ gcc make autoconf curl curl-dev
     git imagemagick-dev libtool postgresql-libs postgresql-dev ffmpeg && \
     ln -s /usr/bin/ffmpeg /usr/local/bin/ffmpeg && \
     ln -s /usr/bin/ffprobe /usr/local/bin/ffprobe && \
-    docker-php-ext-configure gd --enable-gd \
-        --with-freetype=/usr/include/ \
-          \
-        --with-webp=/usr/include/ \
-        --with-jpeg=/usr/include/ && \
+    docker-php-ext-configure gd --with-gd \
+        --with-freetype-dir=/usr/include/ \
+        --with-png-dir=/usr/include/  \
+        --with-webp-dir=/usr/include/ \
+        --with-jpeg-dir=/usr/include/ && \
     ##### Install memcached and redis packages
+    echo no | pecl install redis && \
+    echo yes | pecl install memcached && \
+    echo yes | pecl install imagick && \
+    echo yes | pecl install xdebug && \
+    docker-php-ext-enable redis memcached xdebug imagick && \
     ##### Install php extension packages
-    docker-php-ext-install mysqli gd bz2 zip intl pdo_mysql bcmath pgsql pdo_pgsql calendar && \
+    docker-php-ext-install mysqli opcache gd bz2 zip intl pdo_mysql bcmath pgsql pdo_pgsql calendar && \
     ###### set up timezone
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     ###### install drush ######
@@ -45,11 +50,13 @@ ADD conf/drupal8.conf /tmp/drupal.conf
 ADD conf/laravel.conf /tmp/laravel.conf
 ADD conf/supervisord.conf /etc/supervisord.conf
 ADD conf/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+ADD conf/crontab-root /etc/crontabs/root
+ADD conf/drupal-cron /etc/periodic/daily
 
 RUN sed -i -e "s/listen = 9000//g" /usr/local/etc/php-fpm.d/zz-docker.conf && \
     sed -i -e "s/access.log = \/proc\/self\/fd\/2/access.log = \/proc\/self\/fd\/1/g" /usr/local/etc/php-fpm.d/docker.conf && \
     chmod +x /usr/local/bin/docker-entrypoint && \
-    mkdir -p /etc/nginx/ssl /etc/nginx/site-enabled /etc/supervisor/conf.d
+    mkdir -p /etc/nginx/ssl /etc/nginx/site-enabled /etc/supervisor/conf.d /etc/periodic/min
 
 ###### startup prepare ######
 VOLUME ["/var/www/html", "/etc/nignx/site-enabled"]
