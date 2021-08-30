@@ -7,7 +7,7 @@ Build nginx+php-fpm in one docker image, with predifined nginx config for Drupal
 docker run -d -p 8080:80 -v /path-to-your-drupal-code:/var/www/html -e APP=drupal sparkpos/docker-nginx-php:7.1-alpine
 
 ### quick drupal running.
-docker run -d -p 8080:80 -v /path-to-your-drupal-code:/var/www/html -e APP=drupal -e DRUPAL8_WEB_DIR=true sparkpos/docker-nginx-php:7.1-alpine
+docker run -d -p 8080:80 -v /path-to-your-drupal-code:/var/www/html -e APP=drupal -e DRUPAL_WEB_ROOT=web sparkpos/docker-nginx-php:7.1-alpine
 
 
 ### quick laravel running.
@@ -22,7 +22,7 @@ see [docker-compose.yml](https://github.com/sparkpos/docker-nginx-php/blob/maste
 |Name|Description|
 |----|-----------|
 |APP|the type of app, current allowed value: drupal, laravel|
-|DRUPAL8_WEB_DIR|for drupal project that initialized via compose, the code is located in "web". using this flag to indicate.|
+|DRUPAL_WEB_ROOT|for drupal project that initialized via compose, the code is located in "web". using this flag to indicate.|
 |MAX_FILE_UPLOAD_SIZE|Modify the upload file size, this will change both the nginx & php config. default value: 32M|
 
 #### php & php-fpm

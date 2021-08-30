@@ -5,9 +5,14 @@ if [ -f /tmp/"$APP".conf ]; then
 fi
 # if the drupal is init by composer, the code directory locate on "web".
 # This options is used to change the nginx root path.
+## DRUPAL8_WEB_DIR depreacated.
 if [ ! -z "$DRUPAL8_WEB_DIR" ]; then
   DRUPAL8_WEB_DIR=${DRUPAL8_WEB_DIR:=web}
   sed -i "s/root \/var\/www\/html;/root \/var\/www\/html\/$DRUPAL8_WEB_DIR;/g" /etc/nginx/site-enabled/drupal.conf
+fi
+if [ ! -z "$DRUPAL_WEB_ROOT" ]; then
+  DRUPAL8_WEB_DIR=${DRUPAL_WEB_ROOT:=web}
+  sed -i "s/root \/var\/www\/html;/root \/var\/www\/html\/$DRUPAL_WEB_ROOT;/g" /etc/nginx/site-enabled/drupal.conf
 fi
 
 # Increase the memory_limit
