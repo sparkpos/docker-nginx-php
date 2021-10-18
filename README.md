@@ -41,6 +41,7 @@ see [docker-compose.yml](https://github.com/sparkpos/docker-nginx-php/blob/maste
 #### cron support
 * provide default drupal cron, run daily.
 * for custom cron command, using docker volumes for different perpose
+* check [here](https://github.com/sparkpos/docker-nginx-php/blob/master/conf/crontab-root) for more details.
 ```
 /etc/periodic/min
 /etc/periodic/15min
