@@ -39,7 +39,7 @@ see [docker-compose.yml](https://github.com/sparkpos/docker-nginx-php/blob/maste
 |TIMEOUT|modify the nginx.conf:proxy_read_timeout and php.ini:max_execution_time|
 
 #### cron support
-* provide default drupal cron, run weekly
+* provide default drupal cron, run daily.
 * for custom cron command, using docker volumes for different perpose
 ```
 /etc/periodic/min
