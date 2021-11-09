@@ -13,11 +13,11 @@ RUN apk add --no-cache --virtual .build-deps g++ gcc make autoconf curl curl-dev
     git imagemagick-dev libtool postgresql-libs postgresql-dev ffmpeg && \
     ln -s /usr/bin/ffmpeg /usr/local/bin/ffmpeg && \
     ln -s /usr/bin/ffprobe /usr/local/bin/ffprobe && \
-    docker-php-ext-configure gd --with-gd \
-        --with-freetype-dir=/usr/include/ \
-        --with-png-dir=/usr/include/  \
-        --with-webp-dir=/usr/include/ \
-        --with-jpeg-dir=/usr/include/ && \
+    docker-php-ext-configure gd --enable-gd \
+        --with-freetype=/usr/include/ \
+          \
+        --with-webp=/usr/include/ \
+        --with-jpeg=/usr/include/ && \
     ##### Install memcached and redis packages
     echo no | pecl install redis && \
     echo yes | pecl install memcached && \

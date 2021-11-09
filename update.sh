@@ -20,7 +20,7 @@ for version in ${versions[*]}; do
   fi
   # https://www.php.net/manual/en/image.installation.php
   # php 7.4 gd config differenct as before.
-  if [[ "${version}" = "7.4" || "${version}" = "8.1-rc" ]]; then
+  if [[ "${version}" = "7.4" || "${version}" = "8.0" || "${version}" = "8.1-rc" ]]; then
     sed -i "s/with-gd/enable-gd/g" ${version}/alpine/Dockerfile
     sed -i "s/--with-png-dir=\/usr\/include\///g" ${version}/alpine/Dockerfile
     sed -i "s/-dir=/=/g" ${version}/alpine/Dockerfile
