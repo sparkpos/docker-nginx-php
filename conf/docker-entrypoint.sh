@@ -3,6 +3,9 @@ APP=${APP:=drupal}
 if [ -f /tmp/"$APP".conf ]; then
   mv /tmp/$APP.conf /etc/nginx/site-enabled/
 fi
+# https://www.php.net/manual/en/ini.core.php#ini.variables-order
+sed -i "s/variables_order = \"GPCS\"/variables_order = \"EGPCS\"/g" /usr/local/etc/php/php.ini
+
 # if the drupal is init by composer, the code directory locate on "web".
 # This options is used to change the nginx root path.
 ## DRUPAL8_WEB_DIR depreacated.
