@@ -10,7 +10,7 @@ ENV PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[00m\]@\h: \[\
 RUN apk add --no-cache --virtual .build-deps g++ gcc make autoconf curl curl-dev bzip2 bzip2-dev \
     zip libzip-dev icu icu-libs icu-dev libmemcached libmemcached-dev zlib-dev cyrus-sasl-dev \
     mysql-client nginx supervisor tzdata bash libpng-dev freetype-dev libwebp-dev libjpeg-turbo-dev libmcrypt-dev \
-    git imagemagick-dev libtool libpq-dev ffmpeg && \
+    git imagemagick-dev libtool postgresql-libs postgresql-dev  ffmpeg && \
     ln -s /usr/bin/ffmpeg /usr/local/bin/ffmpeg && \
     ln -s /usr/bin/ffprobe /usr/local/bin/ffprobe && \
     docker-php-ext-configure gd --with-gd \

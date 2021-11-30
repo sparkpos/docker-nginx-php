@@ -18,6 +18,10 @@ for version in ${versions[*]}; do
   if [ "${version}" = "7.1" ]; then
     sed -i "s/pecl install xdebug/pecl install xdebug-2.9.0/g" ${version}/alpine/Dockerfile
   fi
+  ## php:7.1-fpm-alpile stick on alpine 3.10.
+  if [[ "${version}" = "7.1" ||  "${version}" = "7.2" ]]; then
+    sed -i "s/libpq-dev/postgresql-libs postgresql-dev /g" ${version}/alpine/Dockerfile
+  fi
   # https://www.php.net/manual/en/image.installation.php
   # php 7.4 gd config differenct as before.
   if [[ "${version}" = "7.4" || "${version}" = "8.0" || "${version}" = "8.1" ]]; then
