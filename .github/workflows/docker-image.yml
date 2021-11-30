@@ -27,9 +27,9 @@ jobs:
          - tag: 8.0-alpine
            Dockerfile: "8.0/alpine/Dockerfile"
            image: "sparkpos/docker-nginx-php:8.0-alpine"
-         - tag: 8.1-rc-alpine
-           Dockerfile: "8.1-rc/alpine/Dockerfile"
-           image: "sparkpos/docker-nginx-php:8.1-rc-alpine"
+         - tag: 8.1-alpine
+           Dockerfile: "8.1/alpine/Dockerfile"
+           image: "sparkpos/docker-nginx-php:8.1-alpine"
     steps:
     - uses: actions/checkout@v2
     -
