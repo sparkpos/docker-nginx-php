@@ -58,7 +58,7 @@ RUN sed -i -e "s/listen = 9000//g" /usr/local/etc/php-fpm.d/zz-docker.conf && \
     mkdir -p /etc/nginx/ssl /etc/nginx/site-enabled /etc/supervisor/conf.d /etc/periodic/min
 
 ###### startup prepare ######
-VOLUME ["/var/www/html", "/etc/nignx/site-enabled"]
+#VOLUME ["/var/www/html", "/etc/nignx/site-enabled"]
 
 ENTRYPOINT ["docker-entrypoint"]
 
