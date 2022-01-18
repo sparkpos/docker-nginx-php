@@ -7,7 +7,7 @@ HTTP_HEADER_X_FRAME_OPTIONS=${HTTP_HEADER_X_FRAME_OPTIONS:="SAMEORIGIN"};
 sed -i "s/add_header X-Frame-Options SAMEORIGIN;/add_header X-Frame-Options $HTTP_HEADER_X_FRAME_OPTIONS;/g" /etc/nginx/site-enabled/*.conf
 
 HTTP_HEADER_X_CONTENT_SECURITY_POLICY=${HTTP_HEADER_X_CONTENT_SECURITY_POLICY:="default-src 'self';"};
-sed -i "s/add_header Content-Security-Policy SAMEORIGIN;/add_header Content-Security-Policy $HTTP_HEADER_X_CONTENT_SECURITY_POLICY;/g" /etc/nginx/site-enabled/*.conf
+sed -i "s/add_header Content-Security-Policy \"default-src 'self';\";/add_header Content-Security-Policy $HTTP_HEADER_X_CONTENT_SECURITY_POLICY;/g" /etc/nginx/site-enabled/*.conf
 
 # https://www.php.net/manual/en/ini.core.php#ini.variables-order
 sed -i "s/variables_order = \"GPCS\"/variables_order = \"EGPCS\"/g" /usr/local/etc/php/php.ini
