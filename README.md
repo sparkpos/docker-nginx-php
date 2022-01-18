@@ -4,14 +4,13 @@ Build nginx+php-fpm in one docker image, with predifined nginx config for Drupal
 ### Usage
 ```bash
 ### quick drupal running.
-docker run -d -p 8080:80 -v /path-to-your-drupal-code:/var/www/html -e APP=drupal sparkpos/docker-nginx-php:7.1-alpine
+docker run -d -p 8080:80 -v /path-to-your-drupal-code:/var/www/html -e APP=drupal sparkpos/docker-nginx-php:7.4-alpine
 
 ### quick drupal running.
-docker run -d -p 8080:80 -v /path-to-your-drupal-code:/var/www/html -e APP=drupal -e DRUPAL_WEB_ROOT=web sparkpos/docker-nginx-php:7.1-alpine
-
+docker run -d -p 8080:80 -v /path-to-your-drupal-code:/var/www/html -e APP=drupal -e DRUPAL_WEB_ROOT=web sparkpos/docker-nginx-php:7.4-alpine
 
 ### quick laravel running.
-docker run -d -p 8080:80 -v /path-to-your-laravel-code:/var/www/html -e APP=laravel sparkpos/docker-nginx-php:7.1-alpine
+docker run -d -p 8080:80 -v /path-to-your-laravel-code:/var/www/html -e APP=laravel sparkpos/docker-nginx-php:7.4-alpine
 ```
 
 ### docker-compose example
@@ -23,6 +22,8 @@ see [docker-compose.yml](https://github.com/sparkpos/docker-nginx-php/blob/maste
 |----|-----------|
 |APP|the type of app, current allowed value: drupal, laravel|
 |DRUPAL_WEB_ROOT|for drupal project that initialized via compose, the code is located in "web". using this flag to indicate.|
+|HTTP_HEADER_X_FRAME_OPTIONS|X-Frame-Options, default value: SAMEORIGIN; see [here](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/X-Frame-Options)|
+|HTTP_HEADER_X_CONTENT_SECURITY_POLICY|Content-Security-Policy, default value: "default-src 'self';";see [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy)|
 |MAX_FILE_UPLOAD_SIZE|Modify the upload file size, this will change both the nginx & php config. default value: 32M|
 
 #### php & php-fpm
