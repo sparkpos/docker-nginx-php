@@ -3,10 +3,10 @@ APP=${APP:=drupal}
 if [ -f /tmp/"$APP".conf ]; then
   mv /tmp/$APP.conf /etc/nginx/site-enabled/
 fi
-HTTP_HEADER_X_FRAME_OPTIONS=$(HTTP_HEADER_X_FRAME_OPTIONS:=SAMEORIGIN);
+HTTP_HEADER_X_FRAME_OPTIONS=${HTTP_HEADER_X_FRAME_OPTIONS:="SAMEORIGIN"};
 sed -i "s/add_header X-Frame-Options SAMEORIGIN;/add_header X-Frame-Options $HTTP_HEADER_X_FRAME_OPTIONS;/g" /etc/nginx/site-enabled/*.conf
 
-HTTP_HEADER_X_CONTENT_SECURITY_POLICY=$(HTTP_HEADER_X_CONTENT_SECURITY_POLICY:="default-src 'self';");
+HTTP_HEADER_X_CONTENT_SECURITY_POLICY=${HTTP_HEADER_X_CONTENT_SECURITY_POLICY:="default-src 'self';"};
 sed -i "s/add_header Content-Security-Policy SAMEORIGIN;/add_header Content-Security-Policy $HTTP_HEADER_X_CONTENT_SECURITY_POLICY;/g" /etc/nginx/site-enabled/*.conf
 
 # https://www.php.net/manual/en/ini.core.php#ini.variables-order
