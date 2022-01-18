@@ -21,7 +21,7 @@ services:
       - VIRTUAL_HOST=example.dev,example.local
       - DRUPAL_WEB_ROOT=web
       - HTTP_HEADER_X_FRAME_OPTIONS="allow-from example.com"
-      - "HTTP_HEADER_X_CONTENT_SECURITY_POLICY=default-src 'self';script-src example.com;style-src 'self' example.com"
+      - "HTTP_HEADER_X_CONTENT_SECURITY_POLICY=default-src 'self';script-src example.com;style-src 'self' example.com;"
     hostname: "example.docker"
     networks:
       - frontend
