@@ -5,7 +5,7 @@ ENV DRUSH_LAUCHER 0.9.1
 ENV COLUMNS 0
 ENV DRUSH_LAUNCHER_FALLBACK=/usr/local/bin/drush8
 ENV PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[00m\]@\h: \[\033[01;36m\]\w\[\033[00m\] \[\t\]\n\$ '
-ENV HTTP_HEADER_X_CONTENT_SECURITY_POLICY="default-src 'self' data: 'unsafe-inline' 'unsafe-eval' *.google.com *.baidu.com unpkg.com *.gstatic.com *.googleapis.com;"
+ENV HTTP_HEADER_X_CONTENT_SECURITY_POLICY="default-src 'self' data: 'unsafe-inline' 'unsafe-eval' *.google.com *.baidu.com unpkg.com *.gstatic.com *.googleapis.com *.jsdelivr.net *.cloudflare.com d3js.org;"
 
 ###### Install packages
 RUN apk add --no-cache --virtual .build-deps g++ gcc make autoconf curl curl-dev bzip2 bzip2-dev \
