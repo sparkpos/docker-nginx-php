@@ -14,6 +14,11 @@ sed -i "s/variables_order = \"GPCS\"/variables_order = \"EGPCS\"/g" /usr/local/e
 
 # if the drupal is init by composer, the code directory locate on "web".
 # This options is used to change the nginx root path.
+## DRUPAL_SUBDIR support.
+if [ ! -z "$DRUPAL_SUBDIR" ]; then
+  DRUPAL_SUBDIR=${DRUPAL_SUBDIR:=fake-subdir-placeholder}
+  sed -i "s/fake-subdir-placeholder/$DRUPAL_SUBDIR/g" /etc/nginx/site-enabled/drupal.conf
+fi
 ## DRUPAL8_WEB_DIR depreacated.
 if [ ! -z "$DRUPAL8_WEB_DIR" ]; then
   DRUPAL8_WEB_DIR=${DRUPAL8_WEB_DIR:=web}
