@@ -42,9 +42,9 @@ fi
 
 # Increase the post_max_size
 if [ ! -z "$MAX_FILE_UPLOAD_SIZE" ]; then
-  sed -i "s/post_max_size = 32M/post_max_size = ${MAX_FILE_UPLOAD_SIZE}M/g" /usr/local/etc/php/php.ini
-  sed -i "s/upload_max_filesize = 32M/upload_max_filesize= ${MAX_FILE_UPLOAD_SIZE}M/g" /usr/local/etc/php/php.ini
-  sed -i "s/client_max_body_size 32M;/client_max_body_size ${MAX_FILE_UPLOAD_SIZE}M;/g" /etc/nginx/nginx.conf
+  sed -i "s/post_max_size = 32M/post_max_size = ${MAX_FILE_UPLOAD_SIZE}/g" /usr/local/etc/php/php.ini
+  sed -i "s/upload_max_filesize = 32M/upload_max_filesize= ${MAX_FILE_UPLOAD_SIZE}/g" /usr/local/etc/php/php.ini
+  sed -i "s/client_max_body_size 32M;/client_max_body_size ${MAX_FILE_UPLOAD_SIZE};/g" /etc/nginx/nginx.conf
 fi
 
 # php-fpm process related config.
