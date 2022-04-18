@@ -40,6 +40,6 @@ jobs:
         push: true
         context: .
         #platforms: linux/amd64,linux/arm64
-        file: '${{ matrix.version }}/Dockerfile'
+        file: '${{ matrix.version }}/alpine/Dockerfile'
         tags: 'sparkpos/docker-nginx-php:${{ matrix.version }}'
 
