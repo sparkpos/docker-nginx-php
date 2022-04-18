@@ -11,25 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-       include:
-         - tag: 7.1-alpine
-           Dockerfile: "7.1/alpine/Dockerfile"
-           image: "sparkpos/docker-nginx-php:7.1-alpine"
-         - tag: 7.2-alpine
-           Dockerfile: "7.2/alpine/Dockerfile"
-           image: "sparkpos/docker-nginx-php:7.2-alpine"
-         - tag: 7.3-alpine
-           Dockerfile: "7.3/alpine/Dockerfile"
-           image: "sparkpos/docker-nginx-php:7.3-alpine"
-         - tag: 7.4-alpine
-           Dockerfile: "7.4/alpine/Dockerfile"
-           image: "sparkpos/docker-nginx-php:7.4-alpine"
-         - tag: 8.0-alpine
-           Dockerfile: "8.0/alpine/Dockerfile"
-           image: "sparkpos/docker-nginx-php:8.0-alpine"
-         - tag: 8.1-alpine
-           Dockerfile: "8.1/alpine/Dockerfile"
-           image: "sparkpos/docker-nginx-php:8.1-alpine"
+        version:
+          - 7.1-alpine
+          - 7.2-alpine
+          - 7.3-alpine
+          - 7.4-alpine
+          - 8.0-alpine
+          - 8.1-alpine
     steps:
     - uses: actions/checkout@v2
     -
@@ -52,5 +40,6 @@ jobs:
         push: true
         context: .
         #platforms: linux/amd64,linux/arm64
-        file: ${{ matrix.Dockerfile }}
-        tags: ${{ matrix.image }}
+        file: '${{ matrix.version }}/Dockerfile'
+        tags: 'sparkpos/docker-nginx-php:${{ matrix.version }}'
+
