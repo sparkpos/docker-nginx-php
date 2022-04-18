@@ -12,12 +12,12 @@ jobs:
     strategy:
       matrix:
         version:
-          - 7.1-alpine
-          - 7.2-alpine
-          - 7.3-alpine
-          - 7.4-alpine
-          - 8.0-alpine
-          - 8.1-alpine
+          - 7.1
+          - 7.2
+          - 7.3
+          - 7.4
+          - 8.0
+          - 8.1
     steps:
     - uses: actions/checkout@v2
     -
@@ -41,5 +41,5 @@ jobs:
         context: .
         #platforms: linux/amd64,linux/arm64
         file: '${{ matrix.version }}/alpine/Dockerfile'
-        tags: 'sparkpos/docker-nginx-php:${{ matrix.version }}'
+        tags: 'sparkpos/docker-nginx-php:${{ matrix.version }}-alpine'
 
