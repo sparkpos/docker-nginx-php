@@ -63,7 +63,7 @@ RUN sed -i -e "s/listen = 9000//g" /usr/local/etc/php-fpm.d/zz-docker.conf && \
 
 ENTRYPOINT ["docker-entrypoint"]
 
-HEALTHCHECK --interval=30s --timeout=5s --retries=3 --start_period=10s \
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 --start-period=10s \
   CMD curl -f http://localhost/ || exit 1
 
 EXPOSE 80
