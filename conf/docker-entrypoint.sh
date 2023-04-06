@@ -40,6 +40,10 @@ if [ ! -z "$PHP_MEM_LIMIT" ]; then
   sed -i "s/memory_limit = 128M/memory_limit = ${PHP_MEM_LIMIT}M/g" /usr/local/etc/php/php.ini
 fi
 # Increase the timeout
+if [ ! -z "$NGINX_WORKER_PROCESSES" ]; then
+  sed -i "s/worker_processes auto;/worker_processes ${NGINX_WORKER_PROCESSES};/g" /etc/nginx/nginx.conf
+fi
+# Increase the timeout
 if [ ! -z "$TIMEOUT" ]; then
   sed -i "s/max_execution_time = 30/max_execution_time = ${TIMEOUT}/g" /usr/local/etc/php/php.ini
   sed -i "s/proxy_read_timeout 60;/proxy_read_timeout ${TIMEOUT};/g" /etc/nginx/nginx.conf
