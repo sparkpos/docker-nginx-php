@@ -1,4 +1,5 @@
 FROM php:7.2-fpm-alpine
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
 ENV DRUSH_VERSION 8.4.11
 ENV DRUSH_LAUCHER 0.10.1
@@ -14,15 +15,7 @@ RUN apk add --no-cache --virtual .build-deps g++ gcc make autoconf curl curl-dev
     git imagemagick-dev libtool postgresql-libs postgresql-dev  ffmpeg && \
     ln -s /usr/bin/ffmpeg /usr/local/bin/ffmpeg && \
     ln -s /usr/bin/ffprobe /usr/local/bin/ffprobe && \
-    docker-php-ext-configure gd --with-gd \
-        --with-freetype-dir=/usr/include/ \
-        --with-png-dir=/usr/include/  \
-        --with-webp-dir=/usr/include/ \
-        --with-jpeg-dir=/usr/include/ && \
-    ##### Install memcached and redis packages
-    echo no | pecl install redis && \
-    echo yes | pecl install memcached && \
-    echo yes | pecl install imagick && \
+    install-php-extensions gd redis memcached imagick  && \
     docker-php-ext-enable redis memcached imagick && \
     ##### Install php extension packages
     docker-php-ext-install mysqli opcache gd bz2 zip intl pdo_mysql bcmath pgsql pdo_pgsql calendar && \
