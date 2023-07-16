@@ -1,8 +1,8 @@
 FROM php:7.3-fpm-alpine
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
-ENV DRUSH_VERSION 8.4.11
-ENV DRUSH_LAUCHER 0.10.1
+ENV DRUSH_VERSION 8.4.12
+ENV DRUSH_LAUCHER 0.10.2
 ENV COLUMNS 0
 ENV DRUSH_LAUNCHER_FALLBACK=/usr/local/bin/drush8
 ENV PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[00m\]@\h: \[\033[01;36m\]\w\[\033[00m\] \[\t\]\n\$ '

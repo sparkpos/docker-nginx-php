@@ -1,8 +1,8 @@
 FROM php:7.2-fpm-alpine
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
-ENV DRUSH_VERSION 8.4.11
-ENV DRUSH_LAUCHER 0.10.1
+ENV DRUSH_VERSION 8.4.12
+ENV DRUSH_LAUCHER 0.10.2
 ENV COLUMNS 0
 ENV DRUSH_LAUNCHER_FALLBACK=/usr/local/bin/drush8
 ENV PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[00m\]@\h: \[\033[01;36m\]\w\[\033[00m\] \[\t\]\n\$ '
@@ -12,7 +12,7 @@ ENV HTTP_HEADER_X_CONTENT_SECURITY_POLICY="default-src 'self' data: 'unsafe-inli
 RUN apk add --no-cache --virtual .build-deps g++ gcc make autoconf curl curl-dev bzip2 bzip2-dev \
     zip libzip-dev icu icu-libs icu-dev libmemcached libmemcached-dev zlib-dev cyrus-sasl-dev \
     mysql-client postgresql13-client nginx supervisor tzdata bash libpng-dev freetype-dev libwebp-dev libjpeg-turbo-dev libmcrypt-dev \
-    git imagemagick-dev libtool libpq-dev ffmpeg && \
+    git imagemagick-dev libtool postgresql-libs postgresql-dev  ffmpeg && \
     ln -s /usr/bin/ffmpeg /usr/local/bin/ffmpeg && \
     ln -s /usr/bin/ffprobe /usr/local/bin/ffprobe && \
     install-php-extensions gd redis memcached imagick  && \
