@@ -15,8 +15,13 @@ RUN apk add --no-cache --virtual .build-deps g++ gcc make autoconf curl curl-dev
     git imagemagick-dev libtool libpq-dev ffmpeg && \
     ln -s /usr/bin/ffmpeg /usr/local/bin/ffmpeg && \
     ln -s /usr/bin/ffprobe /usr/local/bin/ffprobe && \
-    install-php-extensions gd redis memcached imagick  && \
+    install-php-extensions redis memcached imagick  && \
     docker-php-ext-enable redis memcached imagick && \
+    docker-php-ext-configure gd --enable-gd \
+        --with-freetype=/usr/include/ \
+          \
+        --with-webp=/usr/include/ \
+        --with-jpeg=/usr/include/ && \
     ##### Install php extension packages
     docker-php-ext-install mysqli opcache gd bz2 zip intl pdo_mysql bcmath pgsql pdo_pgsql calendar && \
     ###### set up timezone
