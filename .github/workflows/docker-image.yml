@@ -5,6 +5,12 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Reason'
+        required: true
+        default: 'Why??'
 
 jobs:
   build:
